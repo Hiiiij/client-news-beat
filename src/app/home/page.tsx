@@ -5,6 +5,8 @@ import NewsButton from '../../components/NewsButton';
 import SearchBar from '../../components/NewsSearchBar';
 import NewsCarousel from '../../components/NewsCarousel';
 import NewsSection from '../../components/NewsSection';
+import NavBar from '../../components/NavBar';
+
 const categories = [
   'CULTURE',
   'LIFESTYLE',
@@ -13,6 +15,7 @@ const categories = [
   'FINANCES',
   'POLITICS',
 ];
+
 const HomePage = () => {
   const [trendingNews, setTrendingNews] = useState([]);
   const [categoryNews, setCategoryNews] = useState({});
@@ -44,7 +47,16 @@ const HomePage = () => {
     };
     fetchCategoryNews();
   }, []);
-  const handleSearch = (query) => {
+  interface Article {
+    title: string;
+    content?: string;
+  }
+
+  interface CategoryNews {
+    [key: string]: Article[];
+  }
+
+  const handleSearch = (query: string) => {
     setSearchQuery(query);
   };
   const filterNews = (news) => {
@@ -61,6 +73,7 @@ const HomePage = () => {
   };
   return (
     <div className="p-6">
+      <NavBar />
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-12 justify-items-center mx-auto max-w-5xl">
         {categories.map((category) => (
           <a href={`#${category}`} key={category}>
